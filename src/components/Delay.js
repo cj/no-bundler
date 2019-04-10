@@ -1,7 +1,7 @@
 import { useState, useEffect } from '/web_modules/preact/hooks.js'
 import html from '/html.js'
 
-export const Delay = ({ delay = 1000, children }) => {
+const Delay = ({ delay = 1000, children }) => {
   const [waiting, setWaiting] = useState(true)
 
   useEffect(() => {
@@ -10,7 +10,9 @@ export const Delay = ({ delay = 1000, children }) => {
     return () => clearTimeout(timer)
   }, [children, delay])
 
-  return !waiting && html`${children}`
+  return html`
+    ${!waiting && children}
+  `
 }
 
 export default Delay

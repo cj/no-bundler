@@ -1,4 +1,4 @@
-const Purgecss = require('purgecss')
+/* eslint-disable import/no-extraneous-dependencies */
 const glob = require('glob')
 
 class Extractor {
@@ -11,13 +11,7 @@ module.exports = {
   css: glob.sync('dist/**/*.css'),
   content: glob.sync('dist/**/*.*(html|js)'),
   whitelist: ['app', 'html', 'body', 'fa', 'svg', 'animated'],
-  whitelistPatterns: [
-    /[A-Za-z0-9_-]+__[A-Za-z0-9_-]+/,
-    /^fa-.*/,
-  /^svg-.*/,
-  /^animated.*/,
-  /^slide.*/,
-  ],
+  whitelistPatterns: [/[A-Za-z0-9_-]+__[A-Za-z0-9_-]+/, /^fa-.*/, /^svg-.*/, /^animated.*/, /^slide.*/],
   extractors: [
     {
       extractor: Extractor,

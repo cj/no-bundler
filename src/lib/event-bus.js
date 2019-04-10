@@ -1,5 +1,5 @@
 import mitt from '/web_modules/mitt.js'
 
-export const eventBus = mitt()
+const eventBus = mitt()
 
 export default eventBus

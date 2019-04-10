@@ -1,0 +1,29 @@
+# ignore these files/folders
+.*
+*.log
+node_modules/
+web_modules/
+coverage/
+dist/
+build/
+tmp/
+log/
+parsed/
+tags*
+# Ignore uploaded files in development
+/storage/*
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+/src/css/bootstrap.css
+
+# allow these files/folders
+!/log/.keep
+!/tmp/.keep
+!/storage/.keep
+!.gitignore
+!.bundle/config
+!.*rc
+!.*ignore
+!.*config
+!.storybook
+!.prerender-spa.json

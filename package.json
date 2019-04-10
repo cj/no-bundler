@@ -21,7 +21,27 @@
     "netlify:deploy": "netlify deploy",
     "netlify:deploy:prod": "netlify deploy --prod",
     "deploy": "run-s build netlify:deploy",
-    "deploy:prod": "run-s build netlify:deploy:prod"
+    "deploy:prod": "run-s build netlify:deploy:prod",
+    "prettier": "pretty-quick --staged",
+    "lint": "run-p lint:js lint:css",
+    "lint:js": "eslint --ignore-path .eslintignore . --fix",
+    "lint:css": "stylelint '**/*.{less,scss,css}' --fix",
+    "postinstall": "patch-package"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint:js",
+      "git add"
+    ],
+    "*.{css,scss}": [
+      "npm run lint:css",
+      "git add"
+    ]
   },
   "@pika/web": {
     "webDependencies": [
@@ -31,8 +51,7 @@
       "preact/compat",
       "preact-router",
       "react-bootstrap",
-      "mitt",
-      "@brad-jones/dynamic-polyfill-sync"
+      "mitt"
     ]
   },
   "reactSnap": {
@@ -107,15 +126,37 @@
     "@node-minify/html-minifier": "^4.0.5",
     "@node-minify/terser": "^4.1.0",
     "@pika/web": "^0.4.1",
+    "babel-eslint": "^10.0.1",
     "cpy": "^7.2.0",
     "cpy-cli": "^2.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-config-react-app": "^3.0.8",
+    "eslint-find-rules": "^3.3.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^1.1.1",
+    "eslint-plugin-flowtype": "^3.6.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.6.0",
     "glob": "^7.1.3",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
     "live-server": "^1.2.1",
     "netlify-cli": "^2.10.0",
     "node-sass": "^4.11.0",
     "npm-run-all": "^4.1.5",
+    "patch-package": "^6.1.1",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0",
     "purgecss": "^1.2.0",
     "react-snap": "^1.23.0",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "stylelint": "^9.10.1",
+    "stylelint-config-prettier": "^5.0.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-prettier": "^1.0.6"
   }
 }

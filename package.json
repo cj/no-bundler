@@ -1,0 +1,121 @@
+{
+  "name": "no-bundlers",
+  "author": "CJ Lazell",
+  "license": "MIT",
+  "version": "0.0.1",
+  "description": "No webpack, parceljs, browserify etc... just the future!",
+  "main": "script.js",
+  "scripts": {
+    "dev": "run-p bootstrap:watch pika-web live-server",
+    "live-server": "live-server src --no-browser --entry-file=index.html",
+    "pika-web": "pika-web --optimize --dest src/web_modules",
+    "copyfiles": "cpy '**/*.*' '../dist/' --cwd=src --parents",
+    "prerender": "react-snap",
+    "clean": "rimraf dist",
+    "purgecss": "purgecss --config ./purgecss.config.js -o dist/css",
+    "minify": "node minify",
+    "uglifyjs": "uglifyjs-folder dist -ey -o dist -x .js -p **/*.js,!web_modules/**/*.js",
+    "build": "run-s clean bootstrap:build pika-web copyfiles minify prerender purgecss",
+    "bootstrap:build": "node-sass bootstrap.scss -o src/css",
+    "bootstrap:watch": "node-sass --watch bootstrap.scss -o src/css",
+    "netlify:deploy": "netlify deploy",
+    "netlify:deploy:prod": "netlify deploy --prod",
+    "deploy": "run-s build netlify:deploy",
+    "deploy:prod": "run-s build netlify:deploy:prod"
+  },
+  "@pika/web": {
+    "webDependencies": [
+      "htm",
+      "preact",
+      "preact/hooks",
+      "preact/compat",
+      "preact-router",
+      "react-bootstrap",
+      "mitt",
+      "@brad-jones/dynamic-polyfill-sync"
+    ]
+  },
+  "reactSnap": {
+    "source": "dist",
+    "include": [
+      "/",
+      "/200.html",
+      "/404.html"
+    ],
+    "inlineCss": true,
+    "minifyHtml": {
+      "minifyCSS": {
+        "level": {
+          "1": {
+            "all": true
+          },
+          "2": {
+            "all": true
+          }
+        }
+      },
+      "minifyJS": {
+        "compress": {
+          "drop_console": true,
+          "drop_debugger": true,
+          "negate_iife": false,
+          "passes": 2,
+          "pure_getters": true,
+          "unsafe": true,
+          "unsafe_proto": true
+        },
+        "output": {
+          "wrap_iife": true,
+          "comments": false
+        },
+        "toplevel": true,
+        "warnings": true
+      },
+      "collapseBooleanAttributes": true,
+      "collapseWhitespace": true,
+      "decodeEntities": true,
+      "keepClosingSlash": true,
+      "removeAttributeQuotes": true,
+      "ignoreCustomComments": [],
+      "removeComments": true,
+      "removeEmptyAttributes": true,
+      "removeRedundantAttributes": true,
+      "removeScriptTypeAttributes": true,
+      "removeStyleLinkTypeAttributes": true,
+      "sortAttributes": false,
+      "sortClassName": false
+    },
+    "skipThirdPartyRequests": true,
+    "preconnectThirdParty": false,
+    "asyncScriptTags": true
+  },
+  "dependencies": {
+    "@brad-jones/dynamic-polyfill-sync": "^0.3.0",
+    "bootstrap": "^4.3.1",
+    "htm": "^2.1.1",
+    "mitt": "^1.1.3",
+    "preact": "^10.0.0-alpha.4",
+    "preact-async-route": "^2.2.1",
+    "preact-router": "^3.0.0",
+    "react": "gist:023bf53da5df9ea3091210303dd1b351",
+    "react-bootstrap": "^1.0.0-beta.6",
+    "react-dom": "gist:6bbeadd92f28bff896d314cf0fbcbda7"
+  },
+  "devDependencies": {
+    "@node-minify/clean-css": "^4.0.5",
+    "@node-minify/core": "^4.0.5",
+    "@node-minify/html-minifier": "^4.0.5",
+    "@node-minify/terser": "^4.1.0",
+    "@pika/web": "^0.4.1",
+    "cpy": "^7.2.0",
+    "cpy-cli": "^2.0.0",
+    "glob": "^7.1.3",
+    "live-server": "^1.2.1",
+    "netlify-cli": "^2.10.0",
+    "node-sass": "^4.11.0",
+    "npm-run-all": "^4.1.5",
+    "purgecss": "^1.2.0",
+    "react-snap": "^1.23.0",
+    "rimraf": "^2.6.3"
+  }
+}

@@ -19,6 +19,7 @@ tags*
 # allow these files/folders
 !/log/.keep
 !/tmp/.keep
+!/src/css/.keep.css
 !/storage/.keep
 !.gitignore
 !.bundle/config

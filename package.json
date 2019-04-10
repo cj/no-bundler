@@ -6,7 +6,7 @@
   "description": "No webpack, parceljs, browserify etc... just the future!",
   "main": "script.js",
   "scripts": {
-    "dev": "run-p bootstrap:watch pika-web live-server",
+    "dev": "run-p scss:watch pika-web live-server",
     "live-server": "live-server src --no-browser --entry-file=index.html",
     "pika-web": "pika-web --optimize --dest src/web_modules",
     "copyfiles": "cpy '**/*.*' '../dist/' --cwd=src --parents",
@@ -15,9 +15,9 @@
     "purgecss": "purgecss --config ./purgecss.config.js -o dist/css",
     "minify": "node minify",
     "uglifyjs": "uglifyjs-folder dist -ey -o dist -x .js -p **/*.js,!web_modules/**/*.js",
-    "build": "run-s clean bootstrap:build pika-web copyfiles minify prerender purgecss",
-    "bootstrap:build": "node-sass bootstrap.scss -o src/css",
-    "bootstrap:watch": "node-sass --watch bootstrap.scss -o src/css",
+    "build": "run-s clean scss:build pika-web copyfiles minify prerender purgecss",
+    "scss:build": "node-sass src/scss -o src/css --include-path node_modules --include-path src/scss",
+    "scss:watch": "run-s \"scss:build -- --watch\"",
     "netlify:deploy": "netlify deploy",
     "netlify:deploy:prod": "netlify deploy --prod",
     "deploy": "run-s build netlify:deploy",
@@ -28,6 +28,17 @@
     "lint:css": "stylelint '**/*.{less,scss,css}' --fix",
     "postinstall": "patch-package"
   },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "npm run prettier && lint-staged"
@@ -126,6 +137,7 @@
     "@node-minify/html-minifier": "^4.0.5",
     "@node-minify/terser": "^4.1.0",
     "@pika/web": "^0.4.1",
+    "autoprefixer": "^9.5.1",
     "babel-eslint": "^10.0.1",
     "cpy": "^7.2.0",
     "cpy-cli": "^2.0.0",
@@ -149,6 +161,9 @@
     "node-sass": "^4.11.0",
     "npm-run-all": "^4.1.5",
     "patch-package": "^6.1.1",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.6.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
     "purgecss": "^1.2.0",

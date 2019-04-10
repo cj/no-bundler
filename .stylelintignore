@@ -1,4 +1,5 @@
 # ignore these files/folders
+src/css
 .*
 *.log
 node_modules/

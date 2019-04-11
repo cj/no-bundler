@@ -1,8 +1,8 @@
 import html from '/html.js'
-import { Button } from '/lib/Bootstrap.js'
-import { useState, useCallback } from '/web_modules/preact/hooks.js'
+import {Button} from '/lib/Bootstrap.js'
+import {useState, useCallback} from '/web_modules/preact/hooks.js'
 
-const Header = ({ name }) =>
+const Header = ({name}) =>
   html`
     <header><h2>${name} List</h2></header>
   `
@@ -10,7 +10,7 @@ const Footer = props =>
   html`
     <footer ...${props} />
   `
-const TodoList = ({ todos }) =>
+const TodoList = ({todos}) =>
   todos.map(
     todo => html`
       <li class="list-group-item">${todo}</li>

@@ -30,7 +30,7 @@ export function importModule(url) {
     }
     const absURL = toAbsoluteURL(url)
     const loader = `import * as m from "${absURL}"; window.${vector} = m;` // export Module
-    const blob = new Blob([loader], { type: 'text/javascript' })
+    const blob = new Blob([loader], {type: 'text/javascript'})
     script.src = URL.createObjectURL(blob)
 
     document.head.appendChild(script)

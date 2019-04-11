@@ -6,7 +6,7 @@ import {
   Button as RButton,
 } from '/web_modules/react-bootstrap.js'
 
-const addClassName = Component => ({ class: className = '', ...props }) =>
+const addClassName = Component => ({class: className = '', ...props}) =>
   html`
     <${Component} className="${className}" ...${props} />
   `

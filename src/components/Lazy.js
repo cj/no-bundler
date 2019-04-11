@@ -1,4 +1,4 @@
-import { useState, useEffect } from '/web_modules/preact/hooks.js'
+import {useState, useEffect} from '/web_modules/preact/hooks.js'
 import html from '/html.js'
 import Delay from '/components/Delay.js'
 import eventBus from '/lib/event-bus.js'
@@ -10,7 +10,7 @@ const Loading = () =>
 
 const cache = {}
 
-const Lazy = ({ component: asyncComponent, path }) => {
+const Lazy = ({component: asyncComponent, path}) => {
   const [component, setComponent] = useState(cache[path] || Loading)
 
   useEffect(() => {

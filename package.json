@@ -7,6 +7,7 @@
   "main": "script.js",
   "scripts": {
     "dev": "run-p scss:watch postcss:watch pika-web live-server",
+    "start": "run-s dev",
     "live-server": "live-server src --no-browser --ignorePattern=src/scss --entry-file=index.html",
     "pika-web": "pika-web --dest src/web_modules",
     "copyfiles": "cpy '**/*.*' '!**/*.js' '../dist/' --cwd=src --parents",
@@ -24,6 +25,8 @@
     "scss:watch": "run-p \"scss:build -- --watch\"",
     "netlify:deploy": "netlify deploy",
     "netlify:deploy:prod": "netlify deploy --prod",
+    "netlify:dev": "netlify dev",
+    "netlify:dev:live": "netlify dev --live",
     "deploy": "run-s build netlify:deploy",
     "deploy:prod": "run-s build netlify:deploy:prod",
     "prettier": "pretty-quick --staged",

@@ -1,5 +1,5 @@
 import html from '/html.js'
-import { Button } from '/web_modules/react-bootstrap.js'
+import { Button } from '/lib/Bootstrap.js'
 import { useState, useCallback } from '/web_modules/preact/hooks.js'
 
 const Header = ({ name }) =>
@@ -20,10 +20,13 @@ const TodoList = ({ todos }) =>
 export const Home = () => {
   const [todos, setTodos] = useState([])
 
-  const addTodo = useCallback(() => setTodos(preTodos => [...preTodos, `Item ${preTodos.length}`]), [todos])
+  const addTodo = useCallback(
+    () => setTodos(preTodos => [...preTodos, `Item ${preTodos.length}`]),
+    [todos],
+  )
 
   return html`
-    <div class="mx-2">
+    <div class="text-center">
       <${Header} name="Todo List" />
 
       <ul class="list-group mb-2">
@@ -32,7 +35,7 @@ export const Home = () => {
               <${TodoList} todos=${todos} />
             `
           : html`
-              <li>No Todos</li>
+              <li class="list-group-item">No Todos</li>
             `}
       </ul>
 

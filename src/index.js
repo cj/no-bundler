@@ -20,7 +20,6 @@ if (rootElement.hasChildNodes()) {
         <${App} />
       `,
       rootElement,
-      rootElement.firstElementChild,
     )
   }
   eventBus.on('async:loaded', hydrate)

@@ -1,3 +1,1 @@
-User-agent: * 
-Disallow: /web_modules/
-Disallow: /datocms/
+User-agent: *

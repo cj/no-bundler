@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "run-p scss:watch postcss:watch pika live-server",
     "start": "run-s dev",
-    "live-server": "live-server ./src --no-browser --ignore=scss,css/*.map  --entry-file=index.html",
+    "live-server": "live-server ./src --no-browser --ignore=scss,css/*.map,**/*.ts  --entry-file=index.html",
     "pika": "pika-web --dest src/web_modules",
     "copyfiles": "cpy '**/*.*' '!**/*.js' '!**/*.map' '!scss' '../dist/' --cwd=src --parents",
     "prerender": "react-snap",
@@ -143,6 +143,8 @@
     "@node-minify/html-minifier": "^4.0.5",
     "@node-minify/terser": "^4.1.0",
     "@pika/web": "^0.4.1",
+    "@types/node": "^11.13.4",
+    "@typescript-eslint/parser": "^1.6.0",
     "autoprefixer": "^9.5.1",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
@@ -193,6 +195,7 @@
     "stylelint": "^9.10.1",
     "stylelint-config-prettier": "^5.0.0",
     "stylelint-config-standard": "^18.2.0",
-    "stylelint-prettier": "^1.0.6"
+    "stylelint-prettier": "^1.0.6",
+    "typescript": "^3.4.3"
   }
 }

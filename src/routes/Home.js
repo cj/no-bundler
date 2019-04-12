@@ -1,6 +1,6 @@
 import html from '/html.js'
-import {Button} from '/lib/Bootstrap.js'
 import {useState, useCallback} from '/web_modules/preact/hooks.js'
+import {Button} from '/lib/Bootstrap.js'
 
 const Header = ({name}) =>
   html`
@@ -20,10 +20,9 @@ const TodoList = ({todos}) =>
 export const Home = () => {
   const [todos, setTodos] = useState([])
 
-  const addTodo = useCallback(
-    () => setTodos(preTodos => [...preTodos, `Item ${preTodos.length}`]),
-    [todos],
-  )
+  const addTodo = useCallback(() => {
+    setTodos(preTodos => [...preTodos, `Item ${preTodos.length}`])
+  }, [todos])
 
   return html`
     <div class="text-center">

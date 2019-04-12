@@ -5,23 +5,34 @@
   "version": "0.0.1",
   "description": "No webpack, parceljs, browserify etc... just the future!",
   "main": "script.js",
+  "@pika/web": {
+    "webDependencies": [
+      "htm",
+      "preact",
+      "preact/hooks",
+      "preact/compat",
+      "preact-router",
+      "react-bootstrap",
+      "mitt"
+    ]
+  },
   "scripts": {
-    "dev": "run-p scss:watch postcss:watch pika-web live-server",
+    "dev": "run-p scss:watch postcss:watch pika live-server",
     "start": "run-s dev",
-    "live-server": "live-server src --no-browser --ignorePattern=src/scss --entry-file=index.html",
-    "pika-web": "pika-web --dest src/web_modules",
-    "copyfiles": "cpy '**/*.*' '!**/*.js' '../dist/' --cwd=src --parents",
+    "live-server": "live-server ./src --no-browser --ignore=scss,css/*.map  --entry-file=index.html",
+    "pika": "pika-web --dest src/web_modules",
+    "copyfiles": "cpy '**/*.*' '!**/*.js' '!**/*.map' '!scss' '../dist/' --cwd=src --parents",
     "prerender": "react-snap",
     "clean": "rimraf dist",
     "rollup": "rollup -c",
     "purgecss": "purgecss --config ./purgecss.config.js -o dist/css",
-    "minify": "node minify",
+    "minify": "node -e 'require(`./scripts/minify`)()'",
     "uglifyjs": "uglifyjs-folder dist -ey -o dist -x .js -p **/*.js,!web_modules/**/*.js",
-    "build": "run-s clean scss:build postcss:build pika-web copyfiles rollup polyfillDynamicImport minify prerender purgecss",
+    "build": "run-s clean scss:build postcss:build pika copyfiles rollup polyfillDynamicImport minify prerender purgecss",
     "polyfillDynamicImport": "replace-in-file \"import(\" \"window.asyncImport(\" dist/**/*.js",
-    "postcss:build": "postcss .css/ --dir src/css --include-dotfiles",
+    "postcss:build": "postcss .css/*.css --dir src/css --include-dotfiles",
     "postcss:watch": "run-s \"postcss:build -- --watch\"",
-    "scss:build": "node-sass-chokidar src/scss -o .css --include-path node_modules --include-path src/scss",
+    "scss:build": "node-sass-chokidar src/scss -o .css --output-style expanded --source-map true --source-map-root --include-path node_modules --include-path src/scss",
     "scss:watch": "run-p \"scss:build -- --watch\"",
     "netlify:deploy": "netlify deploy",
     "netlify:deploy:prod": "netlify deploy --prod",
@@ -54,17 +65,6 @@
     "*.{css,scss}": [
       "npm run lint:css",
       "git add"
-    ]
-  },
-  "@pika/web": {
-    "webDependencies": [
-      "htm",
-      "preact",
-      "preact/hooks",
-      "preact/compat",
-      "preact-router",
-      "react-bootstrap",
-      "mitt"
     ]
   },
   "reactSnap": {
@@ -131,13 +131,15 @@
     "preact-router": "^3.0.0",
     "react": "gist:023bf53da5df9ea3091210303dd1b351",
     "react-bootstrap": "^1.0.0-beta.6",
-    "react-dom": "gist:6bbeadd92f28bff896d314cf0fbcbda7"
+    "react-dom": "gist:6bbeadd92f28bff896d314cf0fbcbda7",
+    "yargs": "^13.0.0-candidate.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-modules-commonjs": "^7.4.3",
     "@babel/plugin-transform-object-assign": "^7.2.0",
     "@babel/preset-env": "^7.4.3",
+    "@csstools/postcss-sass": "^4.0.0",
     "@node-minify/clean-css": "^4.0.5",
     "@node-minify/core": "^4.0.5",
     "@node-minify/html-minifier": "^4.0.5",
@@ -176,6 +178,8 @@
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.6.0",
+    "postcss-sass": "^0.3.5",
+    "postcss-scss": "^2.0.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
     "purgecss": "^1.2.0",

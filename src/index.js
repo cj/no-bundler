@@ -3,8 +3,8 @@ import html from '/html.js'
 import Router from '/routes/Router.js'
 import eventBus from '/lib/event-bus.js'
 import asyncImport from '/lib/async-import.js'
-
 import App from '/components/App.js'
+import '/lib/process.js'
 
 window.asyncImport = asyncImport
 

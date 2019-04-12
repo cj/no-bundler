@@ -14,4 +14,6 @@ const plugins = [
   }),
 ]
 
-module.exports = { plugins }
+module.exports = {
+  plugins,
+}

@@ -127,12 +127,10 @@
     "htm": "^2.1.1",
     "mitt": "^1.1.3",
     "preact": "^10.0.0-alpha.4",
-    "preact-async-route": "^2.2.1",
     "preact-router": "^3.0.0",
     "react": "gist:023bf53da5df9ea3091210303dd1b351",
     "react-bootstrap": "^1.0.0-beta.6",
-    "react-dom": "gist:6bbeadd92f28bff896d314cf0fbcbda7",
-    "yargs": "^13.0.0-candidate.0"
+    "react-dom": "gist:6bbeadd92f28bff896d314cf0fbcbda7"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
@@ -178,8 +176,6 @@
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.6.0",
-    "postcss-sass": "^0.3.5",
-    "postcss-scss": "^2.0.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
     "purgecss": "^1.2.0",

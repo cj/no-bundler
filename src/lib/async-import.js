@@ -4,7 +4,7 @@ function toAbsoluteURL(url) {
   return a.cloneNode(false).href // -> "http://example.com/hoge.html"
 }
 
-export function importModule(url) {
+function asyncImport(url) {
   return new Promise((resolve, reject) => {
     const vector = `$importModule$${Math.random()
       .toString(32)
@@ -37,4 +37,4 @@ export function importModule(url) {
   })
 }
 
-export default importModule
+export default asyncImport

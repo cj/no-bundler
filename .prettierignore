@@ -4,6 +4,7 @@ src/css
 *.log
 node_modules/
 web_modules/
+scripts/process/template.js
 coverage/
 dist/
 build/

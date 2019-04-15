@@ -4,7 +4,7 @@
   "license": "MIT",
   "version": "0.0.1",
   "description": "No webpack, parceljs, browserify etc... just the future!",
-  "main": "script.js",
+  "main": "src/index.js",
   "@pika/web": {
     "webDependencies": [
       "htm",
@@ -13,13 +13,14 @@
       "preact/compat",
       "preact-router",
       "react-bootstrap",
+      "easy-peasy",
       "mitt"
     ]
   },
   "scripts": {
-    "dev": "run-p scss:watch postcss:watch pika live-server",
+    "dev": "run-p watch scss:watch postcss:watch pika live-server",
     "start": "run-s dev",
-    "live-server": "live-server ./src --no-browser --ignore=scss,css/*.map,**/*.ts  --entry-file=index.html",
+    "live-server": "live-server ./src --no-browser --ignore=scss,.app/css/*.map,**/*.ts  --entry-file=index.html",
     "pika": "pika-web --dest src/web_modules",
     "copyfiles": "cpy '**/*.*' '!**/*.js' '!**/*.map' '!scss' '../dist/' --cwd=src --parents",
     "prerender": "react-snap",
@@ -28,9 +29,9 @@
     "purgecss": "purgecss --config ./purgecss.config.js -o dist/css",
     "minify": "node -e 'require(`./scripts/minify`)()'",
     "uglifyjs": "uglifyjs-folder dist -ey -o dist -x .js -p **/*.js,!web_modules/**/*.js",
-    "build": "run-s clean scss:build postcss:build pika copyfiles rollup polyfillDynamicImport minify prerender purgecss",
+    "build": "run-s clean scss:build postcss:build pika copyfiles rollup minify prerender purgecss",
     "polyfillDynamicImport": "replace-in-file \"import(\" \"window.asyncImport(\" dist/**/*.js",
-    "postcss:build": "postcss .css/*.css --dir src/css --include-dotfiles",
+    "postcss:build": "postcss .css/*.css --dir src/.app/css --include-dotfiles",
     "postcss:watch": "run-s \"postcss:build -- --watch\"",
     "scss:build": "node-sass-chokidar src/scss -o .css --output-style expanded --source-map true --source-map-root --include-path node_modules --include-path src/scss",
     "scss:watch": "run-p \"scss:build -- --watch\"",
@@ -44,7 +45,9 @@
     "lint": "run-p lint:js lint:css",
     "lint:js": "eslint --ignore-path .eslintignore . --fix",
     "lint:css": "stylelint '**/*.{less,scss,css}' --fix",
-    "postinstall": "patch-package"
+    "postinstall": "run-p patch pika",
+    "watch": "node -r esm scripts/watch",
+    "patch": "patch-package"
   },
   "browserslist": [
     ">0.2%",
@@ -124,7 +127,9 @@
   "dependencies": {
     "@brad-jones/dynamic-polyfill-sync": "^0.3.0",
     "bootstrap": "^4.3.1",
+    "easy-peasy": "^2.1.5",
     "htm": "^2.1.1",
+    "lodash-es": "^4.17.11",
     "mitt": "^1.1.3",
     "preact": "^10.0.0-alpha.4",
     "preact-router": "^3.0.0",
@@ -151,8 +156,10 @@
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-transform-imports": "^1.5.1",
+    "chokidar": "^2.1.5",
     "cpy": "^7.2.0",
     "cpy-cli": "^2.0.0",
+    "dotenv": "^7.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
@@ -165,10 +172,12 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
+    "esm": "^3.2.22",
     "glob": "^7.1.3",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.5",
     "live-server": "^1.2.1",
+    "mkdirp": "^0.5.1",
     "netlify-cli": "^2.11.7",
     "node-sass": "^4.11.0",
     "node-sass-chokidar": "^1.3.4",

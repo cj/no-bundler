@@ -9,6 +9,7 @@ build/
 tmp/
 log/
 parsed/
+scripts/process/template.js
 tags*
 # Ignore uploaded files in development
 /storage/*

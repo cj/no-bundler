@@ -9,14 +9,16 @@ import path from 'path'
 export default {
   input: 'src/index.js',
   output: {
+    // entryFileNames: '[name]-[hash].js',
     dir: 'dist',
     format: 'esm',
   },
   plugins: [
     replace({
-      exclude: 'src/web_modules/**',
+      exclude: '(src/lib/async-import.js|src/web_modules/**)',
       delimiters: ['', ''],
       '/web_modules/react-bootstrap.js': 'react-bootstrap',
+      'asyncImport(': 'import(',
     }),
     alias({
       react: path.resolve('./src/web_modules/preact/compat.js'),

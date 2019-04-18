@@ -6,10 +6,10 @@ const terser = require('@node-minify/terser')
 const fs = require('fs')
 
 const minify = (dir = 'dist') => {
-  const run = (type, compressor, options) => {
-    const files = glob.sync(`${dir}/!(web_modules){/**,}*.${type}`, {realpath: true})
+  const run = async (type, compressor, options) => {
+    const files = glob.sync(`${dir}{/**,}*.${type}`, {realpath: true})
 
-    files.forEach(file => {
+    files.map(async file => {
       const callback = (error, data) => {
         if (error) return console.log(error)
 
@@ -23,10 +23,14 @@ const minify = (dir = 'dist') => {
 
       nodeMinify({options, compressor, callback, input: file, output: file})
     })
+
+    return Promise.all(files)
   }
 
-  run('css', cleanCSS, {level: {1: {specialComments: 0}}})
-  run('js', terser, {mangle: true, compress: true})
+  Promise.all([
+    run('css', cleanCSS, {level: {1: {specialComments: 0}}}),
+    run('js', terser, {mangle: true, compress: true}),
+  ])
 }
 
 module.exports = minify

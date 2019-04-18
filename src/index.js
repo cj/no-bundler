@@ -2,8 +2,11 @@ import {render} from '/web_modules/preact.js'
 import html from '/html.js'
 import Router from '/routes/Router.js'
 import eventBus from '/lib/event-bus.js'
+import asyncImport from '/lib/async-import.js'
 import App from '/components/App.js'
 import '/.app/process.js'
+
+window.asyncImport = asyncImport
 
 const rootElement = document.getElementById('root')
 
